@@ -27,7 +27,9 @@ class HomePage extends StatelessWidget {
         centerTitle: true,
       ),
       body: GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: crossAxisCount),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: crossAxisCount,
+        ),
         itemCount: itemCount,
         itemBuilder: (context, index) {
           return Padding(

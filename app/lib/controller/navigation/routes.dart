@@ -11,17 +11,26 @@ class Routes {
       case ClipboardPage():
         Navigator.push(
           context,
-          PageTransition(type: PageTransitionType.fade, child: const ClipboardPage()),
+          PageTransition(
+            type: PageTransitionType.fade,
+            child: const ClipboardPage(),
+          ),
         );
       case HomePage():
         Navigator.push(
           context,
-          PageTransition(type: PageTransitionType.fade, child: const HomePage()),
+          PageTransition(
+            type: PageTransitionType.fade,
+            child: const HomePage(),
+          ),
         );
       case ScriptPage():
         Navigator.push(
           context,
-          PageTransition(type: PageTransitionType.fade, child: const ScriptPage()),
+          PageTransition(
+            type: PageTransitionType.fade,
+            child: const ScriptPage(),
+          ),
         );
         break;
       default:
