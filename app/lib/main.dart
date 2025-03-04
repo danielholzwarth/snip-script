@@ -1,7 +1,15 @@
+import 'dart:io';
+import 'package:flutter/foundation.dart';
+import 'package:permission_handler/permission_handler.dart';
+
 import 'package:app/view/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  if (!kIsWeb) await requestPermissions(); // For Android and IOs
+
   runApp(const SnipScript());
 }
 
@@ -15,4 +23,11 @@ class SnipScript extends StatelessWidget {
       home: HomePage(),
     );
   }
+}
+
+Future<void> requestPermissions() async {
+  if (Platform.isAndroid || Platform.isIOS) {
+    await Permission.storage.request();
+  }
+  return;
 }

@@ -1,50 +1,121 @@
+import 'dart:convert';
+import 'dart:io';
 import 'dart:math';
 
+import 'package:app/model/command.dart';
+import 'package:app/model/script.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:file_picker/file_picker.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  bool hasData = false;
 
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     // double height = MediaQuery.of(context).size.height;
 
-    int crossAxisCount = 20;
-    int itemCount = 68;
+    int crossAxisCount = 2;
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Container(
-          width: width * 0.3,
-          alignment: Alignment.center,
-          child: TextField(decoration: InputDecoration(hintText: "Search ...")),
-        ),
-        actions: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.grid_view_rounded)),
-          IconButton(onPressed: () {}, icon: Icon(Icons.filter_alt_rounded)),
-        ],
-        centerTitle: true,
-      ),
-      body: GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: crossAxisCount,
-        ),
-        itemCount: itemCount,
-        itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              alignment: Alignment.center,
-              color: Colors.blue,
-              child: getRandomIcon(),
+    if (!hasData) {
+      return Scaffold(
+        body: Column(
+          children: [
+            Text("Start from scratch or"),
+            TextButton(
+              onPressed: () async {
+                hasData = await pickAndLoadJsonFile();
+                setState(() {});
+              },
+              child: Text("Load data"),
             ),
-          );
-        },
-      ),
-      floatingActionButton: IconButton(onPressed: () {}, icon: Icon(Icons.add)),
-      bottomNavigationBar: BottomAppBar(child: Text("hello")),
+          ],
+        ),
+      );
+    } else {
+      return Scaffold(
+        appBar: AppBar(
+          title: Container(
+            width: width * 0.3,
+            alignment: Alignment.center,
+            child: TextField(
+              decoration: InputDecoration(hintText: "Search ..."),
+            ),
+          ),
+          actions: [
+            IconButton(onPressed: () {}, icon: Icon(Icons.grid_view_rounded)),
+            IconButton(onPressed: () {}, icon: Icon(Icons.filter_alt_rounded)),
+          ],
+          centerTitle: true,
+        ),
+        body: GridView.builder(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: crossAxisCount,
+          ),
+          itemCount: 4,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                alignment: Alignment.center,
+                color: Colors.blue,
+                child: getRandomIcon(),
+              ),
+            );
+          },
+        ),
+        floatingActionButton: IconButton(
+          onPressed: () {},
+          icon: Icon(Icons.add),
+        ),
+        bottomNavigationBar: BottomAppBar(child: Text("hello")),
+      );
+    }
+  }
+}
+
+Future<bool> pickAndLoadJsonFile() async {
+  try {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['json'],
     );
+
+    if (result != null) {
+      String content;
+
+      if (kIsWeb || result.files.single.bytes != null) {
+        // Web: Read file bytes
+        content = utf8.decode(result.files.single.bytes!);
+      } else {
+        // Desktop & Mobile: Read file from path
+        File file = File(result.files.single.path!);
+        content = await file.readAsString();
+      }
+
+      if (content.trim().isEmpty) {
+        print("Error: JSON file is empty.");
+        return false;
+      }
+
+      Map<String, dynamic> jsonData = jsonDecode(content);
+      print(jsonData); // Process JSON data
+      return true;
+    } else {
+      print('File selection canceled');
+      return false;
+    }
+  } catch (e) {
+    print(e.toString());
+    return false;
   }
 }
 
