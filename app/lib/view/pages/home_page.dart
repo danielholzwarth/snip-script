@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 
-import 'package:app/model/command.dart';
-import 'package:app/model/script.dart';
+import 'package:app/controller/routes.dart';
+import 'package:app/view/pages/script_page.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
@@ -18,6 +18,12 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   bool hasData = false;
 
+  Color primaryGreen = Color(0xFF4CAF50); // Primary Green
+  Color secendoryGreen = Color(0xFF2E7D32); // Primary Green
+  Color white = Color(0xFFFFFFFF); // White
+  Color darkGray = Color(0xFF424242); // Dark Gray
+  Color black = Color(0xFF212121); // Dark Gray
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -25,60 +31,69 @@ class _HomePageState extends State<HomePage> {
 
     int crossAxisCount = 2;
 
-    if (!hasData) {
-      return Scaffold(
-        body: Column(
-          children: [
-            Text("Start from scratch or"),
-            TextButton(
-              onPressed: () async {
-                hasData = await pickAndLoadJsonFile();
-                setState(() {});
-              },
-              child: Text("Load data"),
-            ),
-          ],
+    return Scaffold(
+      appBar: AppBar(
+        title: Container(
+          width: width * 0.3,
+          alignment: Alignment.center,
+          child: TextField(decoration: InputDecoration(hintText: "Search ...")),
         ),
-      );
-    } else {
-      return Scaffold(
-        appBar: AppBar(
-          title: Container(
-            width: width * 0.3,
-            alignment: Alignment.center,
-            child: TextField(
-              decoration: InputDecoration(hintText: "Search ..."),
-            ),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.grid_view_rounded, color: primaryGreen),
           ),
-          actions: [
-            IconButton(onPressed: () {}, icon: Icon(Icons.grid_view_rounded)),
-            IconButton(onPressed: () {}, icon: Icon(Icons.filter_alt_rounded)),
-          ],
-          centerTitle: true,
-        ),
-        body: GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: crossAxisCount,
+          IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.filter_alt_rounded, color: primaryGreen),
           ),
-          itemCount: 4,
-          itemBuilder: (context, index) {
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                alignment: Alignment.center,
-                color: Colors.blue,
-                child: getRandomIcon(),
+        ],
+        centerTitle: true,
+      ),
+      body:
+          hasData
+              ? GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: crossAxisCount,
+                ),
+                itemCount: 4,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      alignment: Alignment.center,
+                      color: secendoryGreen,
+                      child: getRandomIcon(),
+                    ),
+                  );
+                },
+              )
+              : Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("Start from scratch or"),
+                    TextButton(
+                      onPressed: () async {
+                        hasData = await pickAndLoadJsonFile();
+                        setState(() {});
+                      },
+                      child: Text("Import data"),
+                    ),
+                  ],
+                ),
               ),
-            );
-          },
-        ),
-        floatingActionButton: IconButton(
-          onPressed: () {},
-          icon: Icon(Icons.add),
-        ),
-        bottomNavigationBar: BottomAppBar(child: Text("hello")),
-      );
-    }
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Routes().pushNamed(context, ScriptPage());
+        },
+        backgroundColor: primaryGreen,
+        elevation: 8.0,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        child: Icon(Icons.add, size: 30, color: white),
+      ),
+      bottomNavigationBar: BottomAppBar(child: Text("hello")),
+    );
   }
 }
 
