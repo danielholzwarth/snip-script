@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage> {
     double width = MediaQuery.of(context).size.width;
     // double height = MediaQuery.of(context).size.height;
 
-    int crossAxisCount = 2;
+    int crossAxisCount = 15;
 
     return Scaffold(
       appBar: AppBar(
@@ -62,7 +62,7 @@ class _HomePageState extends State<HomePage> {
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
                       alignment: Alignment.center,
-                      color: secendoryGreen,
+                      color: primaryGreen,
                       child: getRandomIcon(),
                     ),
                   );
@@ -388,5 +388,5 @@ Icon getRandomIcon() {
   ];
 
   var randomIndex = Random().nextInt(icons.length);
-  return Icon(icons[randomIndex]);
+  return Icon(icons[randomIndex], color: Colors.white);
 }
