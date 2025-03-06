@@ -1,109 +1,67 @@
 {
-    "scripts": [
-      {
-        "id": "script_1",
-        "title": "Backup Script",
-        "isEnabled": true,
-        "lastRun": "2025-03-04T03:00:00Z",
-        "createdAt": "2025-02-23T00:00:00Z",
-        "commands": [
-          {
-            "id": "cmd_1",
-            "command": "echo \"Hello, World!\"",
-            "createdAt": "2025-03-02T00:00:00Z",
-            "type": "shell"
-          },
-          {
-            "id": "cmd_2",
-            "command": "ls -la",
-            "createdAt": "2025-03-03T00:00:00Z",
-            "type": "shell"
-          }
-        ],
-        "icon": "backup",
-        "iconColor": "blue",
-        "backgroundColor": "lightgrey"
-      },
-      {
-        "id": "script_2",
-        "title": "Cleanup Temp Files",
-        "isEnabled": false,
-        "lastRun": "2025-03-03T00:00:00Z",
-        "createdAt": "2025-02-14T00:00:00Z",
-        "commands": [
-          {
-            "id": "cmd_2",
-            "command": "ls -la",
-            "createdAt": "2025-03-03T00:00:00Z",
-            "type": "shell"
-          }
-        ],
-        "icon": "delete",
-        "iconColor": "red",
-        "backgroundColor": "lightgrey"
-      },
-      {
-        "id": "script_3",
-        "title": "Deploy App",
-        "isEnabled": true,
-        "lastRun": "2025-03-04T08:00:00Z",
-        "createdAt": "2025-02-28T00:00:00Z",
-        "commands": [
-          {
-            "id": "cmd_3",
-            "command": "npm install",
-            "createdAt": "2025-03-04T05:00:00Z",
-            "type": "node"
-          },
-          {
-            "id": "cmd_4",
-            "command": "git pull",
-            "createdAt": "2025-03-04T06:00:00Z",
-            "type": "git"
-          },
-          {
-            "id": "cmd_5",
-            "command": "docker-compose up -d",
-            "createdAt": "2025-03-04T07:00:00Z",
-            "type": "docker"
-          }
-        ],
-        "icon": "cloud_upload",
-        "iconColor": "green",
-        "backgroundColor": "lightblue"
-      }
-    ],
-    "commands": [
-      {
-        "id": "cmd_1",
-        "command": "echo \"Hello, World!\"",
-        "createdAt": "2025-03-02T00:00:00Z",
-        "type": "shell"
-      },
-      {
-        "id": "cmd_2",
-        "command": "ls -la",
-        "createdAt": "2025-03-03T00:00:00Z",
-        "type": "shell"
-      },
-      {
-        "id": "cmd_3",
-        "command": "npm install",
-        "createdAt": "2025-03-04T05:00:00Z",
-        "type": "node"
-      },
-      {
-        "id": "cmd_4",
-        "command": "git pull",
-        "createdAt": "2025-03-04T06:00:00Z",
-        "type": "git"
-      },
-      {
-        "id": "cmd_5",
-        "command": "docker-compose up -d",
-        "createdAt": "2025-03-04T07:00:00Z",
-        "type": "docker"
-      }
-    ]
-  }
-  
+  "scripts": [
+    {
+      "id": 1,
+      "title": "Backup Script",
+      "isEnabled": true,
+      "lastRun": "2025-03-04T03:00:00Z",
+      "createdAt": "2025-02-23T00:00:00Z",
+      "commands": [
+        {
+          "id": 1,
+          "command": "echo \"Hello, World!\"",
+          "createdAt": "2025-03-02T00:00:00Z",
+          "type": "shell"
+        },
+        {
+          "id": 2,
+          "command": "ls -la",
+          "createdAt": "2025-03-03T00:00:00Z",
+          "type": "shell"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Cleanup Temp Files",
+      "isEnabled": false,
+      "lastRun": "2025-03-03T00:00:00Z",
+      "createdAt": "2025-02-14T00:00:00Z",
+      "commands": [
+        {
+          "id": 3,
+          "command": "ls -la",
+          "createdAt": "2025-03-03T00:00:00Z",
+          "type": "shell"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Deploy App",
+      "isEnabled": true,
+      "lastRun": "2025-03-04T08:00:00Z",
+      "createdAt": "2025-02-28T00:00:00Z",
+      "commands": [
+        {
+          "id": 4,
+          "command": "npm install",
+          "createdAt": "2025-03-04T05:00:00Z",
+          "type": "node"
+        },
+        {
+          "id": 5,
+          "command": "git pull",
+          "createdAt": "2025-03-04T06:00:00Z",
+          "type": "git"
+        },
+        {
+          "id": 6,
+          "command": "docker-compose up -d",
+          "createdAt": "2025-03-04T07:00:00Z",
+          "type": "docker"
+        }
+      ]
+    }
+  ]
+}

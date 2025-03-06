@@ -1,5 +1,5 @@
 class Command {
-  final String id;
+  final int id;
   final String command;
   final DateTime createdAt;
   final String type;
