@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:intl/intl.dart';
 
 import 'package:app/controller/routes.dart';
 import 'package:app/model/script.dart';
@@ -30,7 +31,7 @@ class _HomePageState extends State<HomePage> {
     double width = MediaQuery.of(context).size.width;
     // double height = MediaQuery.of(context).size.height;
 
-    int crossAxisCount = 15;
+    int crossAxisCount = 6;
 
     return Scaffold(
       appBar: AppBar(
@@ -87,6 +88,61 @@ class _HomePageState extends State<HomePage> {
                       },
                       child: Text("Import data"),
                     ),
+                    SClipboard(
+                      width: width,
+                      primaryGreen: primaryGreen,
+                      white: white,
+                      date: DateTime.now(),
+                      expression: "cd test/doe/joe",
+                      index: 1,
+                    ),
+                    SizedBox(height: 8),
+                    SClipboard(
+                      width: width,
+                      primaryGreen: primaryGreen,
+                      white: white,
+                      date: DateTime.now(),
+                      expression:
+                          "Hallo, ich bin ein relatoiv langer Satz und sollte am\nrichtigen moment abgebrochen werden.",
+                      index: 1,
+                    ),
+                    SizedBox(height: 8),
+                    SClipboard(
+                      width: width,
+                      primaryGreen: primaryGreen,
+                      white: white,
+                      date: DateTime.now(),
+                      expression: "cd test/doe/joe",
+                      index: 1,
+                    ),
+                    SizedBox(height: 32),
+                    SCommand(
+                      width: width,
+                      primaryGreen: primaryGreen,
+                      white: white,
+                      title: "Do something",
+                      expression: "cd test/doe/joe",
+                      index: 1,
+                    ),
+                    SizedBox(height: 8),
+                    SCommand(
+                      width: width,
+                      primaryGreen: primaryGreen,
+                      white: white,
+                      title: "Execute some code",
+                      expression: "nexauth --force",
+                      index: 2,
+                    ),
+                    SizedBox(height: 8),
+                    SCommand(
+                      width: width,
+                      primaryGreen: primaryGreen,
+                      white: white,
+                      title: "Get permissions",
+                      expression:
+                          "get some\nmake something cool\nthis is even a third line",
+                      index: 3,
+                    ),
                   ],
                 ),
               ),
@@ -100,6 +156,116 @@ class _HomePageState extends State<HomePage> {
         child: Icon(Icons.add, size: 30, color: white),
       ),
       bottomNavigationBar: BottomAppBar(child: Text("hello")),
+    );
+  }
+}
+
+class SClipboard extends StatelessWidget {
+  const SClipboard({
+    super.key,
+    required this.width,
+    required this.primaryGreen,
+    required this.white,
+    required this.date,
+    required this.expression,
+    required this.index,
+  });
+
+  final double width;
+  final Color primaryGreen;
+  final Color white;
+  final DateTime date;
+  final String expression;
+  final int index;
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.all(Radius.circular(15)),
+      child: Container(
+        width: width * 0.8,
+        color: primaryGreen,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    DateFormat("dd.MM kk:mm").format(date),
+                    style: TextStyle(color: white, fontSize: 10),
+                  ),
+                  SizedBox(height: 4),
+                  Text(
+                    expression,
+                    style: TextStyle(color: white, fontSize: 14),
+                    maxLines: 3,
+                    softWrap: true,
+                  ),
+                ],
+              ),
+              Icon(Icons.copy, color: white),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class SCommand extends StatelessWidget {
+  const SCommand({
+    super.key,
+    required this.width,
+    required this.primaryGreen,
+    required this.white,
+    required this.title,
+    required this.expression,
+    required this.index,
+  });
+
+  final double width;
+  final Color primaryGreen;
+  final Color white;
+  final String title;
+  final String expression;
+  final int index;
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.all(Radius.circular(15)),
+      child: Container(
+        width: width * 0.8,
+        color: primaryGreen,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Step $index - $title",
+                    style: TextStyle(color: white, fontSize: 10),
+                  ),
+                  SizedBox(height: 4),
+                  Text(
+                    expression,
+                    style: TextStyle(color: white, fontSize: 14),
+                  ),
+                ],
+              ),
+              Icon(Icons.menu, color: white),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

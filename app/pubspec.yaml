@@ -10,12 +10,15 @@ dependencies:
   flutter:
     sdk: flutter
 
-  #Page Transitions
+  # Page Transitions
   page_transition: ^2.1.0
 
-  #File picke for json import
+  # File picke for json import
   file_picker: ^9.0.2
   permission_handler: ^11.4.0
+
+  # Date Format
+  intl: ^0.20.2
 
 dev_dependencies:
   flutter_test:
